@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0c0d10">
+<title>Royal Play — Virtual Casino</title>
+<style>
+:root{--bg:#0c0d10;--panel:#15171c;--panel2:#1d2027;--gold:#e7bd65;--gold2:#a87827;--text:#f6f0e4;--muted:#a7a8ad;--line:#333039;--green:#65d69b;--red:#ff7777}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#252018 0,#0c0d10 45%);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+button,input{font:inherit}button{cursor:pointer}.app{max-width:1120px;margin:auto;padding:16px 14px 94px}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0 18px}.brand{display:flex;align-items:center;gap:10px}.crown{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,#f6d98c,#a7782a);color:#17120a;font-size:24px;box-shadow:0 5px 22px #c49a4040}.brand h1{font-size:19px;letter-spacing:2px;margin:0;color:var(--gold)}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:1.6px;margin-top:3px}.profile{border:1px solid var(--line);background:#17181d;color:var(--text);border-radius:12px;padding:9px 11px;max-width:45%;overflow:hidden;text-overflow:ellipsis}
+.notice{border:1px solid #705a2d;background:#302717;color:#f4d99c;border-radius:12px;padding:10px 12px;font-size:12px;line-height:1.45;margin-bottom:14px}
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:12px}.balance,.welcome{background:linear-gradient(135deg,#1d1a14,#17181d 70%);border:1px solid #51432b;border-radius:20px;padding:18px;min-height:142px}.eyebrow{font-size:11px;letter-spacing:1.6px;color:var(--muted);text-transform:uppercase}.coins{font-size:clamp(28px,6vw,38px);font-weight:800;color:var(--gold);margin:9px 0 3px}.sub{color:var(--muted);font-size:12px}.welcome h2{font-size:19px;margin:0 0 7px}.welcome p{font-size:12px;color:var(--muted);line-height:1.5;margin:0}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin:25px 2px 12px}.section-head h2{font-size:18px;margin:0}.section-head span{font-size:11px;color:var(--muted)}
+.games{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.game{background:linear-gradient(160deg,#202127,#141519);border:1px solid var(--line);border-radius:17px;padding:12px 8px 13px;text-align:center;color:var(--text);min-width:0;transition:.15s}.game:active{transform:scale(.98)}.game:hover{border-color:#9d7a3e}.game .emoji{font-size:30px;display:block;margin-bottom:9px}.game strong{display:block;font-size:12px}.game small{display:block;color:var(--muted);font-size:10px;margin-top:5px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:16px}.panel-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.panel-top h3{margin:0;font-size:17px}.pill{border:1px solid #5c4b2b;border-radius:99px;padding:5px 9px;color:var(--gold);font-size:10px;white-space:nowrap}
+.game-screen{display:none}.game-screen.active{display:block}.screen-title{display:flex;align-items:center;gap:10px;margin-bottom:14px}.screen-title .emoji{font-size:30px}.screen-title h2{margin:0;font-size:20px}.screen-title p{margin:3px 0 0;color:var(--muted);font-size:12px}
+.play-area{background:radial-gradient(ellipse at center,#29251d,#101115 75%);border:1px solid #443923;border-radius:16px;padding:18px 12px;text-align:center;min-height:125px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px}
+.reels{display:flex;justify-content:center;gap:9px}.reel{display:grid;place-items:center;width:66px;height:72px;background:#f1e7d0;color:#19140d;border-radius:12px;font-size:34px;box-shadow:inset 0 -5px #c7b58f}
+.result{font-weight:700;color:var(--gold);min-height:20px;font-size:13px}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}.controls label{font-size:12px;color:var(--muted)}input[type=number],input[type=text],input[type=password]{width:100%;background:#0d0e12;color:var(--text);border:1px solid #393943;border-radius:10px;padding:11px;outline:none}input:focus{border-color:var(--gold)}.bet{width:95px!important}.btn{border:0;border-radius:11px;padding:11px 15px;background:linear-gradient(135deg,#f1d58b,#b48334);color:#211807;font-weight:800;font-size:12px}.btn.secondary{background:#292a31;color:var(--text);border:1px solid #41414b}.btn:disabled{opacity:.45;cursor:not-allowed}.full{width:100%}
+.cards{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.playing-card{width:55px;height:76px;border-radius:8px;background:#f4eddf;color:#161616;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;box-shadow:0 3px 0 #b9ad96}.playing-card.red{color:#c42f3a}.playing-card.back{background:repeating-linear-gradient(45deg,#8e6b2d,#8e6b2d 5px,#d6b35f 5px,#d6b35f 8px);color:#17130b}
+.roulette-wheel{width:125px;height:125px;border-radius:50%;border:8px solid #d4b46b;background:conic-gradient(#b71f2d 0 30deg,#151515 30deg 60deg,#b71f2d 60deg 90deg,#151515 90deg 120deg,#b71f2d 120deg 150deg,#151515 150deg 180deg,#b71f2d 180deg 210deg,#151515 210deg 240deg,#b71f2d 240deg 270deg,#151515 270deg 300deg,#b71f2d 300deg 330deg,#187746 330deg 360deg);display:grid;place-items:center;box-shadow:0 0 0 3px #42321b}.wheel-core{width:38px;height:38px;border-radius:50%;background:#e3c477;border:5px solid #8a6628}
+.crash-meter{font-size:35px;font-weight:900;color:var(--gold)}.history{display:flex;gap:6px;flex-wrap:wrap}.history span{background:#272830;border-radius:7px;padding:6px 8px;font-size:11px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#101115ed;backdrop-filter:blur(12px);border-top:1px solid #343039;display:flex;justify-content:center;gap:6px;padding:9px 10px calc(9px + env(safe-area-inset-bottom));z-index:5}.bottom-nav button{background:transparent;border:0;color:var(--muted);padding:8px 12px;border-radius:10px;font-size:11px}.bottom-nav button.active{color:var(--gold);background:#292319}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}.modal.open{display:flex}.modal-card{width:100%;max-width:380px;background:#17181d;border:1px solid #5c4928;border-radius:20px;padding:22px}.modal-card h2{margin:0 0 6px}.modal-card p{font-size:12px;color:var(--muted);line-height:1.5}.field{margin:12px 0}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.error{color:#ff8888;font-size:12px;min-height:18px}.muted{color:var(--muted);font-size:11px}.hidden{display:none!important}
+footer{text-align:center;color:#777982;font-size:10px;line-height:1.6;margin-top:24px}
+@media(min-width:700px){.app{padding:25px 24px 50px}.games{grid-template-columns:repeat(6,minmax(0,1fr))}.game{padding:18px 10px}.game .emoji{font-size:36px}.game strong{font-size:13px}.panel{padding:22px}.bottom-nav{display:none}}
+@media(max-width:390px){.hero{grid-template-columns:1fr}.welcome{min-height:unset}.games{gap:7px}.game{padding:10px 4px}.game .emoji{font-size:27px}.brand h1{font-size:16px}.profile{font-size:11px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand"><div class="crown">♛</div><div><h1>ROYAL PLAY</h1><small>VIRTUAL CASINO</small></div></div>
+  <button class="profile" id="accountBtn">♙ Demo Guest · Sign in</button>
+</header>
+<div class="notice">ⓘ DEMO MODE ONLY — virtual coins have no cash value. No deposits, real-money bets, cash prizes or withdrawals.</div>
+<section class="hero" id="homeHero">
+  <div class="balance"><div class="eyebrow">Your virtual balance</div><div class="coins" id="balance">10,000</div><div class="sub">✦ Play coins · Not redeemable for cash</div></div>
+  <div class="welcome"><h2>Welcome to the table.</h2><p>Explore casino-inspired mini-games in a premium black-and-gold demo experience.</p></div>
+</section>
+<div class="section-head" id="gamesHeading"><h2>Choose a game</h2><span>6 DEMO GAMES</span></div>
+<section class="games" id="gameGrid">
+  <button class="game" data-game="slots"><span class="emoji">🎰</span><strong>Slots</strong><small>Spin the reels</small></button>
+  <button class="game" data-game="roulette"><span class="emoji">🎡</span><strong>Roulette</strong><small>Spin the wheel</small></button>
+  <button class="game" data-game="poker"><span class="emoji">🂡</span><strong>Poker</strong><small>High-card demo</small></button>
+  <button class="game" data-game="teen"><span class="emoji">🃏</span><strong>Teen Patti</strong><small>3-card demo</small></button>
+  <button class="game" data-game="crash"><span class="emoji">🚀</span><strong>Crash</strong><small>Practice multiplier</small></button>
+  <button class="game" data-game="blackjack"><span class="emoji">♠️</span><strong>Blackjack</strong><small>Beat the dealer</small></button>
+</section>
+
+<section class="panel game-screen" id="screen">
+  <div class="panel-top"><h3 id="screenHeading">Game</h3><span class="pill">VIRTUAL COINS</span></div>
+  <div class="screen-title"><span class="emoji" id="screenEmoji">🎰</span><div><h2 id="screenTitle">Slots</h2><p id="screenDesc">Spin for fun. No cash value.</p></div></div>
+  <div class="play-area" id="playArea"></div>
+  <div class="controls" id="controls"></div>
+  <div class="muted" style="margin-top:10px">Game outcomes are generated locally for this demo and are not certified gambling-game outcomes.</div>
+</section>
+
+<section class="panel" id="activityPanel">
+  <div class="panel-top"><h3>Recent activity</h3><button class="btn secondary" id="resetBtn">Reset demo</button></div>
+  <div class="history" id="history"><span>No games played yet</span></div>
+</section>
+<footer>ROYAL PLAY · Educational entertainment demo<br>Virtual points only. No cash value, deposits, prizes or withdrawals.</footer>
+</div>
+
+<nav class="bottom-nav">
+  <button class="active" data-nav="home">⌂ Home</button><button data-nav="games">♛ Games</button><button data-nav="activity">◷ Activity</button><button data-nav="account">♙ Account</button>
+</nav>
+
+<div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+ <div class="modal-card"><h2 id="loginTitle">Welcome back</h2><p>Sign in to a local demo profile. This sample does not create a secure online account.</p>
+  <div class="field"><label for="username">Demo username</label><input id="username" type="text" autocomplete="username" placeholder="e.g. sonil" maxlength="20"></div>
+  <div class="field"><label for="password">Demo password</label><input id="password" type="password" autocomplete="current-password" placeholder="Any 4+ characters" maxlength="40"></div>
+  <div class="error" id="loginError"></div><button class="btn full" id="loginBtn">Continue to demo</button><button class="btn secondary full" id="guestBtn" style="margin-top:8px">Continue as guest</button>
+  <p class="muted">Demo login only. Do not use a real password.</p>
+ </div>
+</div>
+<script>
+(() => {
+  const START_BALANCE = 10000;
+  const state = { balance: START_BALANCE, user: null, history: [], crashTimer: null, crashStart: 0, crashMult: 1, crashRunning: false, crashEnded: false, bjPlayer: [], bjDealer: [], bjOver: false };
+  const $ = id => document.getElementById(id);
+  const fmt = n => Math.floor(n).toLocaleString("en-US");
+  const symbols = ["🍒","🍋","🔔","💎","7️⃣","⭐"];
+  const names = {slots:["Slots","🎰","Match symbols across the reels."],roulette:["Roulette","🎡","Pick red, black or green for a virtual-coin round."],poker:["Poker","🂡","A simplified high-card showdown, not full poker."],teen:["Teen Patti","🃏","Compare three-card demo hands."],crash:["Crash","🚀","Practice a rising multiplier; cash-out is virtual only."],blackjack:["Blackjack","♠️","Try to reach 21 without going over."]};
+  const suits = ["♠","♥","♦","♣"], ranks = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
+  let activeGame = "slots";
+  function saveDemo(){ try { localStorage.setItem("royalPlayDemo", JSON.stringify({balance:state.balance,user:state.user,history:state.history.slice(0,12)})); } catch(_){} }
+  function loadDemo(){ try { const d=JSON.parse(localStorage.getItem("royalPlayDemo")||"null"); if(d){state.balance=Number.isFinite(d.balance)?Math.max(0,d.balance):START_BALANCE;state.user=d.user||null;state.history=Array.isArray(d.history)?d.history:[];} }catch(_){} }
+  function renderBalance(){ $("balance").textContent=fmt(state.balance); $("accountBtn").textContent=state.user ? "♙ "+state.user : "♙ Demo Guest · Sign in"; }
+  function log(msg){ state.history.unshift(msg); state.history=state.history.slice(0,8); $("history").innerHTML=state.history.map(x=>`<span>${escapeHtml(x)}</span>`).join("") || "<span>No games played yet</span>"; saveDemo(); }
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+  function changeBalance(delta){ state.balance=Math.max(0,state.balance+delta); renderBalance(); saveDemo(); }
+  function readBet(){ const el=$("betAmount"); let n=el?Math.floor(Number(el.value)):100; if(!Number.isFinite(n)||n<10)n=10; if(n>Math.min(1000,state.balance))n=Math.min(1000,state.balance); if(el)el.value=n; return n; }
+  function canPlay(bet){ if(state.balance<bet){result("Not enough virtual coins. Reset demo to start over.");return false;} return true; }
+  function result(msg){const el=$("result");if(el)el.textContent=msg;}
+  function controls(betLabel="Virtual bet",extra=""){ $("controls").innerHTML=`<label for="betAmount">${betLabel}</label><input class="bet" id="betAmount" type="number" min="10" max="1000" step="10" value="100" inputmode="numeric"><button class="btn" id="playBtn">Play round</button>${extra}`; }
+  function setScreen(key){activeGame=key;const n=names[key];$("screen").classList.add("active");$("screenHeading").textContent=n[0];$("screenTitle").textContent=n[0];$("screenEmoji").textContent=n[1];$("screenDesc").textContent=n[2];document.querySelectorAll(".game").forEach(b=>b.style.borderColor=b.dataset.game===key?"#c9a251":"");renderGame(key);$("screen").scrollIntoView({behavior:"smooth",block:"start"});}
+  function renderGame(key){
+    if(state.crashTimer){clearInterval(state.crashTimer);state.crashTimer=null;state.crashRunning=false;}
+    if(key==="slots"){ $("playArea").innerHTML=`<div class="reels"><div class="reel" id="r0">🍒</div><div class="reel" id="r1">⭐</div><div class="reel" id="r2">💎</div></div><div class="result" id="result">Line up matching symbols to score demo coins.</div>`;controls();$("playBtn").onclick=playSlots;}
+    if(key==="roulette"){ $("playArea").innerHTML=`<div class="roulette-wheel"><div class="wheel-core"></div></div><div class="result" id="result">Choose a colour, then spin.</div>`;controls("Virtual bet",`<label for="roulettePick">Pick</label><select id="roulettePick" style="background:#0d0e12;color:#eee;border:1px solid #393943;border-radius:10px;padding:11px"><option value="red">Red</option><option value="black">Black</option><option value="green">Green (rare)</option></select>`);$("playBtn").onclick=playRoulette;}
+    if(key==="poker"){ $("playArea").innerHTML=`<div class="cards" id="cards"></div><div class="result" id="result">Draw one card against the computer.</div>`;controls();$("playBtn").onclick=playPoker;}
+    if(key==="teen"){ $("playArea").innerHTML=`<div class="cards" id="cards"></div><div class="result" id="result">Compare your 3-card total with the computer's.</div>`;controls();$("playBtn").onclick=playTeen;}
+    if(key==="crash"){ $("playArea").innerHTML=`<div class="crash-meter" id="crashMeter">1.00×</div><div class="result" id="result">Start a round, then cash out before the demo crash.</div>`;controls("Virtual stake",`<button class="btn secondary" id="cashBtn" disabled>Cash out</button>`);$("playBtn").textContent="Start round";$("playBtn").onclick=startCrash;$("cashBtn").onclick=cashCrash;}
+    if(key==="blackjack"){ state.bjOver=false;state.bjPlayer=[];state.bjDealer=[];$("playArea").innerHTML=`<div style="font-size:12px;color:var(--muted)">YOU</div><div class="cards" id="playerCards"></div><div style="font-size:12px;color:var(--muted);margin-top:7px">DEALER</div><div class="cards" id="dealerCards"></div><div class="result" id="result">Deal to begin.</div>`;controls("Virtual bet",`<button class="btn secondary" id="hitBtn" disabled>Hit</button><button class="btn secondary" id="standBtn" disabled>Stand</button>`);$("playBtn").textContent="Deal";$("playBtn").onclick=startBlackjack;$("hitBtn").onclick=hitBlackjack;$("standBtn").onclick=()=>finishBlackjack(false);}
+  }
+  function playSlots(){const bet=readBet();if(!canPlay(bet))return;changeBalance(-bet);const r=Array.from({length:3},()=>symbols[Math.floor(Math.random()*symbols.length)]);r.forEach((v,i)=>$("r"+i).textContent=v);let mult=0;if(r.every(v=>v===r[0]))mult=r[0]==="💎"?8:5;else if(new Set(r).size<3)mult=2;if(mult){const win=bet*mult;changeBalance(win);result(`Nice! ${r.join(" ")} — returned ${fmt(win)} coins (${mult}×).`);log(`Slots +${fmt(win-bet)}`);}else{result(`${r.join(" ")} — no match this round.`);log(`Slots −${fmt(bet)}`);} }
+  function playRoulette(){const bet=readBet();if(!canPlay(bet))return;changeBalance(-bet);const pick=$("roulettePick").value;const n=Math.floor(Math.random()*37);const color=n===0?"green":n%2?"red":"black";const mult=pick==="green"?14:2;if(pick===color){const win=bet*mult;changeBalance(win);result(`Ball landed ${n} (${color}). You got ${fmt(win)} coins back.`);log(`Roulette +${fmt(win-bet)}`);}else{result(`Ball landed ${n} (${color}). Better luck next time.`);log(`Roulette −${fmt(bet)}`);} }
+  function drawCard(){return {rank:ranks[Math.floor(Math.random()*13)],suit:suits[Math.floor(Math.random()*4)]};}
+  function cardValue(c){return c.rank==="A"?14:c.rank==="K"?13:c.rank==="Q"?12:c.rank==="J"?11:Number(c.rank);}
+  function cardHtml(c){return `<div class="playing-card ${c.suit==="♥"||c.suit==="♦"?"red":""}">${c.rank}${c.suit}</div>`;}
+  function playPoker(){const bet=readBet();if(!canPlay(bet))return;changeBalance(-bet);const a=drawCard(),b=drawCard();$("cards").innerHTML=cardHtml(a)+cardHtml(b);const av=cardValue(a),bv=cardValue(b);if(av>bv){changeBalance(bet*2);result(`You win with ${a.rank}${a.suit} against ${b.rank}${b.suit}.`);log(`Poker +${fmt(bet)}`);}else if(av===bv){changeBalance(bet);result(`Tie: ${a.rank}${a.suit} vs ${b.rank}${b.suit}. Stake returned.`);log("Poker tie");}else{result(`Computer wins with ${b.rank}${b.suit}.`);log(`Poker −${fmt(bet)}`);} }
+  function handScore(hand){return hand.reduce((s,c)=>s+cardValue(c),0);}
+  function playTeen(){const bet=readBet();if(!canPlay(bet))return;changeBalance(-bet);const you=[drawCard(),drawCard(),drawCard()],opp=[drawCard(),drawCard(),drawCard()];$("cards").innerHTML=you.map(cardHtml).join("")+`<div style="width:100%;color:var(--muted);font-size:11px;margin:5px 0">Computer: ${opp.map(c=>c.rank+c.suit).join(" ")}</div>`;const a=you.reduce((s,c)=>s+cardValue(c),0),b=opp.reduce((s,c)=>s+cardValue(c),0);if(a>b){changeBalance(bet*2);result(`Your demo hand total ${a} beats ${b}. You win ${fmt(bet)} net coins.`);log(`Teen Patti +${fmt(bet)}`);}else if(a===b){changeBalance(bet);result(`Tie at ${a}. Stake returned.`);log("Teen Patti tie");}else{result(`Computer total ${b} beats your ${a}.`);log(`Teen Patti −${fmt(bet)}`);} }
+  function startCrash(){if(state.crashRunning)return;const bet=readBet();if(!canPlay(bet))return;changeBalance(-bet);state.crashBet=bet;state.crashStart=Date.now();state.crashMult=1;state.crashEnded=false;state.crashRunning=true;$("playBtn").disabled=true;$("cashBtn").disabled=false;result("Multiplier rising… cash out to end your demo round.");state.crashTimer=setInterval(()=>{state.crashMult=1+Math.pow((Date.now()-state.crashStart)/1000,1.45)*0.18;$("crashMeter").textContent=state.crashMult.toFixed(2)+"×";if(Math.random()<0.018+Math.max(0,state.crashMult-1)*0.018){endCrash(false);}},120);}
+  function endCrash(cashed){if(!state.crashRunning)return;clearInterval(state.crashTimer);state.crashTimer=null;state.crashRunning=false;state.crashEnded=true;$("cashBtn").disabled=true;$("playBtn").disabled=false;$("playBtn").textContent="Start another";if(cashed){const win=Math.floor(state.crashBet*state.crashMult);changeBalance(win);result(`Cashed out at ${state.crashMult.toFixed(2)}×. ${fmt(win)} coins returned.`);log(`Crash +${fmt(win-state.crashBet)}`);}else{result(`Demo crash at ${state.crashMult.toFixed(2)}×. Stake lost.`);log(`Crash −${fmt(state.crashBet)}`);}}
+  function cashCrash(){if(state.crashRunning)endCrash(true);}
+  function bjValue(hand){let total=0,aces=0;hand.forEach(c=>{if(c.rank==="A"){total+=11;aces++;}else total+=["K","Q","J"].includes(c.rank)?10:Number(c.rank);});while(total>21&&aces){total-=10;aces--;}return total;}
+  function drawBj(){state.bjPlayer.push(drawCard());state.bjDealer.push(drawCard());}
+  function renderBj(reveal=false){$("playerCards").innerHTML=state.bjPlayer.map(cardHtml).join("");$("dealerCards").innerHTML=reveal?state.bjDealer.map(cardHtml).join(""):cardHtml(state.bjDealer[0])+`<div class="playing-card back">?</div>`;}
+  function startBlackjack(){const bet=readBet();if(!canPlay(bet))return;changeBalance(-bet);state.bjBet=bet;state.bjPlayer=[];state.bjDealer=[];state.bjOver=false;for(let i=0;i<2;i++){state.bjPlayer.push(drawCard());state.bjDealer.push(drawCard());}renderBj(false);$("hitBtn").disabled=false;$("standBtn").disabled=false;$("playBtn").disabled=true;result("Your total: "+bjValue(state.bjPlayer));if(bjValue(state.bjPlayer)===21)finishBlackjack(true);}
+  function hitBlackjack(){if(state.bjOver)return;state.bjPlayer.push(drawCard());renderBj(false);const v=bjValue(state.bjPlayer);result("Your total: "+v);if(v>=21)finishBlackjack(true);}
+  function finishBlackjack(fromHit){if(state.bjOver)return;state.bjOver=true;if(!fromHit){while(bjValue(state.bjDealer)<17)state.bjDealer.push(drawCard());}renderBj(true);$("hitBtn").disabled=true;$("standBtn").disabled=true;$("playBtn").disabled=false;$("playBtn").textContent="Deal again";const p=bjValue(state.bjPlayer),d=bjValue(state.bjDealer);if(p>21){result(`Bust! Your ${p}, dealer ${d}.`);log(`Blackjack −${fmt(state.bjBet)}`);}else if(d>21||p>d){const mult=p===21&&state.bjPlayer.length===2?2.5:2;const win=Math.floor(state.bjBet*mult);changeBalance(win);result(`You win! Your ${p}, dealer ${d}. ${fmt(win)} coins returned.`);log(`Blackjack +${fmt(win-state.bjBet)}`);}else if(p===d){changeBalance(state.bjBet);result(`Push: both total ${p}. Stake returned.`);log("Blackjack tie");}else{result(`Dealer wins: your ${p}, dealer ${d}.`);log(`Blackjack −${fmt(state.bjBet)}`);}}
+  function signIn(){const u=$("username").value.trim(),p=$("password").value;if(u.length<2||p.length<4){$("loginError").textContent="Enter a username (2+ characters) and demo password (4+ characters).";return;}state.user=u.slice(0,20);$("loginModal").classList.remove("open");$("loginError").textContent="";renderBalance();saveDemo();}
+  function showModal(){$("loginModal").classList.add("open");$("loginError").textContent="";}
+  function reset(){if(state.crashTimer)clearInterval(state.crashTimer);state.balance=START_BALANCE;state.user=null;state.history=[];state.crashTimer=null;state.crashRunning=false;try{localStorage.removeItem("royalPlayDemo");}catch(_){}renderBalance();$("history").innerHTML="<span>No games played yet</span>";if($("screen").classList.contains("active"))renderGame(activeGame);}
+  document.querySelectorAll(".game").forEach(b=>b.addEventListener("click",()=>setScreen(b.dataset.game)));
+  $("accountBtn").addEventListener("click",showModal);$("loginBtn").addEventListener("click",signIn);$("guestBtn").addEventListener("click",()=>$("loginModal").classList.remove("open"));$("resetBtn").addEventListener("click",()=>{if(confirm("Reset virtual balance, demo profile and activity?"))reset();});
+  document.querySelectorAll("[data-nav]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-nav]").forEach(x=>x.classList.toggle("active",x===b));const nav=b.dataset.nav;if(nav==="account")showModal();else if(nav==="games")$("gameGrid").scrollIntoView({behavior:"smooth"});else if(nav==="activity")$("activityPanel").scrollIntoView({behavior:"smooth"});else window.scrollTo({top:0,behavior:"smooth"});}));
+  loadDemo();renderBalance();$("history").innerHTML=state.history.map(x=>`<span>${escapeHtml(x)}</span>`).join("")||"<span>No games played yet</span>";
+})();
+</script>
+</body>
+</html>

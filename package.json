@@ -1,0 +1,12 @@
+{
+  "name": "royal-play-virtual-casino",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mobile-first virtual coin casino demo. No real-money features.",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
